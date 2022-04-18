@@ -17,13 +17,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('test', fn() => response()->json(['message' => 'Api work']));
 
+Route::get('/error-token', fn() => response()->json([
+    'error' => true,
+    'message' => 'Invalid token',
+], 401))
+    ->name('error-token');
+
 Route::controller(UserController::class)
     ->prefix('users')
     ->name('users.')
     ->group(function () {
-        Route::post('/', 'store');
+        Route::post('/register', 'register');
+        Route::post('/login', 'login');
+
+        Route::get('/', 'getData')->middleware('auth:sanctum');
+        Route::patch('/', 'update')->middleware('auth:sanctum');
+
+
     });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
