@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import RecentChangeComponent, { RecentChangeProps } from './components/dash_board/recent_change';
+import RecentChangeComponent from './components/dash_board/recent_change';
 import { CryptoService } from './services/crypto_service';
 
 function App() {
-  let props = {cryptoService: CryptoService.create()};
+  let cryptoService = CryptoService.create();
   return (
     <div className="App">
-      <RecentChangeComponent props={props} />
+      <RecentChangeComponent cryptoService={cryptoService} />
     </div>
   );
 }

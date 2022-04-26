@@ -9,16 +9,21 @@ import Paper from '@mui/material/Paper';
 import { CryptoService } from "../../services/crypto_service";
 import { DashBoardCryptDo } from "../../models/do/dashboard_crypto";
 
-export default function RecentChangeComponent() {
+export interface RecentChangeComponentProps {
+  cryptoService: CryptoService;
+}
+
+export default function RecentChangeComponent({ cryptoService }: RecentChangeComponentProps) {
 
   const [cryptos, setCryptos] = useState<DashBoardCryptDo[]>([]);
 
 
   useEffect(() => {
     cryptoService.fetchNewChanges()
-      .then((changes) => {
+      .then(changes => {
         setCryptos(changes);
-      });
+      })
+      .catch(error => console.log(error));
   }, []);
 
   const headers = ["Currency", "24h", "Total wallet", "+/- Total"];
