@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CryptoController;
+use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,7 +35,24 @@ Route::controller(UserController::class)
         Route::get('/', 'getData')->middleware('auth:sanctum');
         Route::patch('/', 'update')->middleware('auth:sanctum');
 
-
     });
+
+
+Route::controller(CryptoController::class)
+    ->prefix('cryptos')
+    ->name('cryptos.')
+    ->group(function () {
+        Route::get('/', 'index');
+    });
+
+
+Route::controller(InvestmentController::class)
+    ->prefix('investments')
+    ->name('investments.')
+    ->group(function () {
+        Route::get('/', 'getUserData')->middleware('auth:sanctum');
+        Route::post('/{crypto}', 'store')->middleware('auth:sanctum');
+    });
+
 
 
