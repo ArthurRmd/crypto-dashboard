@@ -26,6 +26,10 @@ export class ResponseRegisterDo {
   private success: boolean;
   private data: RegisterDataDo;
 
+  public static empty() {
+    return new ResponseRegisterDo(false, new RegisterDataDo('', '', -1));
+  }
+
   public constructor(success: boolean, data: RegisterDataDo) {
     this.success = success;
     this.data = data;

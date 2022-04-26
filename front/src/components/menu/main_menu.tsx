@@ -7,11 +7,11 @@ import { Link } from "react-router-dom";
 export default function MainMenu() {
 
   const menuItemsNames = [
-    InnerMainMenuItem.create("Dashboard", "/dashboard"),
-    InnerMainMenuItem.create("My investments", "/investments"),
-    InnerMainMenuItem.create("Settings", "/settings"),
-    InnerMainMenuItem.create("Sign in", "/sign-in"),
-    InnerMainMenuItem.create("Register now", "/register"),
+    new InnerMainMenuItem("Dashboard", "/dashboard"),
+    new InnerMainMenuItem("My investments", "/investments"),
+    new InnerMainMenuItem("Settings", "/settings"),
+    new InnerMainMenuItem("Sign in", "/sign-in"),
+    new InnerMainMenuItem("Register now", "/register"),
   ];
 
   return (
@@ -28,11 +28,12 @@ class InnerMainMenuItem {
   private title: string;
   private redirect: string;
 
-  public static create(
+  public constructor(
     title: string,
     redirect: string
-  ): InnerMainMenuItem {
-    return new InnerMainMenuItem(title, redirect);
+  ) {
+    this.title = title;
+    this.redirect = redirect;
   }
 
   public render() {
@@ -45,12 +46,5 @@ class InnerMainMenuItem {
     );
   }
 
-  private constructor(
-    title: string,
-    redirect: string
-  ) {
-    this.title = title;
-    this.redirect = redirect;
-  }
 }
 

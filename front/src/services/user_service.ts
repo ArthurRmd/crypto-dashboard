@@ -6,13 +6,15 @@ export class UserService {
     return new UserService();
   }
 
-  public register(register: RegisterDo): ResponseRegisterDo {
-    return new ResponseRegisterDo(
-      true,
-      new RegisterDataDo(
-        register.getName(),
-        register.getEmail(),
-        1
+  public async register(register: RegisterDo): Promise<ResponseRegisterDo> {
+    return Promise.resolve(
+      new ResponseRegisterDo(
+        true,
+        new RegisterDataDo(
+          register.getName(),
+          register.getEmail(),
+          1
+        )
       )
     );
   }
