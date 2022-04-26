@@ -5,16 +5,7 @@ export class DashBoardCryptDo {
   private totalWallet: number;
   private totalWalletDifference: number;
 
-  public static create(
-    currencyName: string,
-    gainLast24Hours: number,
-    totalWallet: number,
-    totalWalletDifference: number
-  ): DashBoardCryptDo {
-    return new DashBoardCryptDo(currencyName, gainLast24Hours, totalWallet, totalWalletDifference);
-  }
-
-  private constructor(
+  public constructor(
     currencyName: string,
     gainLast24Hours: number,
     totalWallet: number,

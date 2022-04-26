@@ -27,8 +27,8 @@ export class CryptoService {
 
   private fakeData(): DashBoardCryptDo[] {
     return [
-      DashBoardCryptDo.create('BTC', 1.05, 870.17, 256.98),
-      DashBoardCryptDo.create('ETH', 5.35, 1050.45, 190.11),
+      new DashBoardCryptDo('BTC', 1.05, 870.17, 256.98),
+      new DashBoardCryptDo('ETH', 5.35, 1050.45, 190.11),
     ];
   }
 }
