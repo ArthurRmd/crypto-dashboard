@@ -1,4 +1,4 @@
-export class RegisterDo {
+export class RegisterPayloadDo {
   private name: string;
   private email: string;
   private password: string;
@@ -22,12 +22,12 @@ export class RegisterDo {
   }
 }
 
-export class ResponseRegisterDo {
+export class RegisterDo {
   private success: boolean;
   private data: RegisterDataDo;
 
   public static empty() {
-    return new ResponseRegisterDo(false, new RegisterDataDo('', '', -1));
+    return new RegisterDo(false, new RegisterDataDo('', '', -1));
   }
 
   public constructor(success: boolean, data: RegisterDataDo) {

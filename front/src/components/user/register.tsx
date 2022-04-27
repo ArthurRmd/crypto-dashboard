@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { UserService } from '../../services/user_service';
-import { RegisterDo, ResponseRegisterDo } from '../../models/do/register';
+import { RegisterPayloadDo, RegisterDo } from '../../models/do/register';
 import { Navigate } from "react-router-dom";
 
 export interface RegisterProps {
@@ -13,7 +13,7 @@ export interface RegisterProps {
 export default function RegisterForm({ userService }: RegisterProps) {
 
   const [isRegistrationComplete, setRegistrationComplete] = useState(false);
-  const [profile, setProfile] = useState(ResponseRegisterDo.empty());
+  const [profile, setProfile] = useState(RegisterDo.empty());
 
   // Form fields
   const [name, setName] = useState('');
@@ -40,7 +40,7 @@ export default function RegisterForm({ userService }: RegisterProps) {
 
   function handleRegistration() {
     if (password === confirmPassword) {
-      const payload = new RegisterDo(name, email, password);
+      const payload = new RegisterPayloadDo(name, email, password);
       userService.register(payload)
         .then((response) => {
           setRegistrationComplete(true);
