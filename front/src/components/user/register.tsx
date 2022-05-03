@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import { UserService } from '../../services/user_service';
 import { RegisterPayloadDo, RegisterDo } from '../../models/do/register';
 import { Navigate } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import { login, logout } from '../../state/loginSlice';
 
 export interface RegisterProps {
   userService: UserService;
@@ -12,6 +14,7 @@ export interface RegisterProps {
 
 export default function RegisterForm({ userService }: RegisterProps) {
 
+  const loginDispatcher = useDispatch();
   const [isRegistrationComplete, setRegistrationComplete] = useState(false);
   const [profile, setProfile] = useState(RegisterDo.empty());
 
@@ -45,11 +48,13 @@ export default function RegisterForm({ userService }: RegisterProps) {
         .then((response) => {
           setRegistrationComplete(true);
           setProfile(response);
+          loginDispatcher(login());
         })
         .catch((_error) => {
           setRegistrationComplete(false);
           setPassword('');
           setConfirmPassword('');
+          loginDispatcher(logout());
         });
     }
   }

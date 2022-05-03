@@ -7,6 +7,9 @@ import DashBoard from './routes/dashboard';
 import MainMenu from './components/menu/main_menu';
 import Register from './routes/register';
 import Login from './routes/login';
+import { Provider } from 'react-redux'
+import store from './store'
+import Logout from './routes/logout';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,18 +18,21 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
 
-      <MainMenu />
+        <MainMenu />
 
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="dashboard" element={<DashBoard />} />
-        <Route path="register" element={<Register />} />
-        <Route path="sign-in" element={<Login />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="dashboard" element={<DashBoard />} />
+          <Route path="register" element={<Register />} />
+          <Route path="sign-in" element={<Login />} />
+          <Route path="log-out" element={<Logout />} />
+        </Routes>
 
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 
