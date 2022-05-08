@@ -6,8 +6,8 @@ import Stack from '@mui/material/Stack';
 import { Link } from "react-router-dom";
 
 class InnerMainMenuItem {
-  private title: string;
-  private redirect: string;
+  private readonly title: string;
+  private readonly redirect: string;
 
   public constructor(
     title: string,
@@ -41,6 +41,7 @@ const LOGIN_ITEMS = [
 ];
 
 const LOGOUT_ITEMS = [
+  new InnerMainMenuItem("Account", "/profile"),
   new InnerMainMenuItem("Log out", "/log-out"),
 ];
 

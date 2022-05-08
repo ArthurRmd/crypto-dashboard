@@ -1,7 +1,7 @@
 import axios from "axios";
-import {RegisterPayloadDo, RegisterDo} from "../models/do/register";
+import {RegisterDo, RegisterPayloadDo} from "../models/do/register";
 import {LoginDo, LoginPayloadDo} from "../models/do/login";
-import {REGISTER_ROUTE, LOGIN_ROUTE} from "./api_routes";
+import {LOGIN_ROUTE, REGISTER_ROUTE} from "./api_routes";
 
 export class UserService {
 
