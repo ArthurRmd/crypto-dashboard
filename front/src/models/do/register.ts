@@ -23,8 +23,8 @@ export class RegisterPayloadDo {
 }
 
 export class RegisterDo {
-  private success: boolean;
-  private data: RegisterDataDo;
+  private readonly success: boolean;
+  private readonly data: RegisterDataDo;
 
   public static empty() {
     return new RegisterDo(false, new RegisterDataDo('', '', -1));
@@ -45,25 +45,26 @@ export class RegisterDo {
 }
 
 export class RegisterDataDo {
-  private name: string;
-  private email: string;
-  private id: number;
+  private readonly _name: string;
+  private readonly _email: string;
+  private readonly _id: number;
 
   public constructor(name: string, email: string, id: number) {
-    this.name = name;
-    this.email = email;
-    this.id = id;
+    this._name = name;
+    this._email = email;
+    this._id = id;
   }
 
-  public getName(): string {
-    return this.name;
+
+  get name(): string {
+    return this._name;
   }
 
-  public getEmail(): string {
-    return this.email;
+  get email(): string {
+    return this._email;
   }
 
-  public getId(): number {
-    return this.id;
+  get id(): number {
+    return this._id;
   }
 }
