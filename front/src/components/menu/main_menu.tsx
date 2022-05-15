@@ -1,71 +1,79 @@
 import React from "react";
-import { useSelector } from 'react-redux'
+import {useSelector} from 'react-redux'
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import {
+    DASHBOARD_ROUTE,
+    INVESTMENTS_ROUTE,
+    LOG_OUT_ROUTE,
+    PROFILE_ROUTE,
+    REGISTER_ROUTE,
+    SIGN_IN_ROUTE
+} from "../../routes/router";
 
 class InnerMainMenuItem {
-  private readonly title: string;
-  private readonly redirect: string;
+    private readonly title: string;
+    private readonly redirect: string;
 
-  public constructor(
-    title: string,
-    redirect: string
-  ) {
-    this.title = title;
-    this.redirect = redirect;
-  }
+    public constructor(
+        title: string,
+        redirect: string
+    ) {
+        this.title = title;
+        this.redirect = redirect;
+    }
 
-  public render() {
-    return (
-      <MenuItem>
-        <Link to={this.redirect}>
-          {this.title}
-        </Link>
-      </MenuItem>
-    );
-  }
+    public render() {
+        return (
+            <MenuItem>
+                <Link to={this.redirect}>
+                    {this.title}
+                </Link>
+            </MenuItem>
+        );
+    }
 
 }
 
 const BASE_ITEMS = [
-  new InnerMainMenuItem("Dashboard", "/dashboard"),
-  new InnerMainMenuItem("My investments", "/investments"),
-  new InnerMainMenuItem("Settings", "/settings"),
+    new InnerMainMenuItem("Dashboard", DASHBOARD_ROUTE),
+    new InnerMainMenuItem("My investments", INVESTMENTS_ROUTE),
+    new InnerMainMenuItem("Settings", "/settings"),
 ];
 
 const LOGIN_ITEMS = [
-  new InnerMainMenuItem("Sign in", "/sign-in"),
-  new InnerMainMenuItem("Register now", "/register"),
+    new InnerMainMenuItem("Sign in", SIGN_IN_ROUTE),
+    new InnerMainMenuItem("Register now", REGISTER_ROUTE),
 ];
 
 const LOGOUT_ITEMS = [
-  new InnerMainMenuItem("Account", "/profile"),
-  new InnerMainMenuItem("Log out", "/log-out"),
+    new InnerMainMenuItem("Account", PROFILE_ROUTE),
+    new InnerMainMenuItem("Log out", LOG_OUT_ROUTE),
 ];
 
 function getItemsRelatedToLoginStatus(loginStatus: boolean): InnerMainMenuItem[] {
-  if (!loginStatus) {
-    return LOGIN_ITEMS;
-  }
-  return LOGOUT_ITEMS;
+    if (!loginStatus) {
+        return LOGIN_ITEMS;
+    }
+    return LOGOUT_ITEMS;
 }
 
 export default function MainMenu() {
 
-  const isLogged: boolean = useSelector((state: any) => state.loger.value);
+    const isLogged: boolean = useSelector((state: any) => state.loger.value);
 
-  let menuItems = BASE_ITEMS;
-  menuItems = menuItems.concat(getItemsRelatedToLoginStatus(isLogged));
+    let menuItems = BASE_ITEMS;
+    menuItems = menuItems.concat(getItemsRelatedToLoginStatus(isLogged));
 
-  return (
-    <Stack direction="row" spacing={2}>
-      <MenuList>
-        {menuItems.map((item) => item.render())}
-      </MenuList>
-    </Stack>
-  );
+    return (
+        <Stack direction="row" spacing={2}>
+            <MenuList>
+                {menuItems.map((item) => item.render())}
+            </MenuList>
+        </Stack>
+    );
 }
 
 

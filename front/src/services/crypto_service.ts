@@ -1,6 +1,6 @@
 import { DashBoardCryptDo } from "../models/do/dashboard_crypto";
 import axios from "axios";
-import { FETCH_NEW_CHANGES } from "./api_routes";
+import { SERVER_FETCH_NEW_CHANGES } from "./api_routes";
 
 export class CryptoService {
 

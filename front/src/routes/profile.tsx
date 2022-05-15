@@ -1,6 +1,6 @@
 import React from 'react';
 import ProfileComponent from "../components/user/profile";
 
-export default function Profile() {
+export default function ProfileRoute() {
     return (<ProfileComponent/>);
 }

@@ -1,36 +1,35 @@
 export class DashBoardCryptDo {
 
-  private currencyName: string;
-  private gainLast24Hours: number;
-  private totalWallet: number;
-  private totalWalletDifference: number;
+    private _currencyName: string;
+    private _gainLast24Hours: number;
+    private _totalWallet: number;
+    private _totalWalletDifference: number;
 
-  public constructor(
-    currencyName: string,
-    gainLast24Hours: number,
-    totalWallet: number,
-    totalWalletDifference: number
-  ) {
-    this.currencyName = currencyName;
-    this.gainLast24Hours = gainLast24Hours;
-    this.totalWallet = totalWallet;
-    this.totalWalletDifference = totalWalletDifference;
-  }
+    public constructor(
+        currencyName: string,
+        gainLast24Hours: number,
+        totalWallet: number,
+        totalWalletDifference: number
+    ) {
+        this._currencyName = currencyName;
+        this._gainLast24Hours = gainLast24Hours;
+        this._totalWallet = totalWallet;
+        this._totalWalletDifference = totalWalletDifference;
+    }
 
-  public getCurrencyName(): string {
-    return this.currencyName;
-  }
+    get currencyName(): string {
+        return this._currencyName;
+    }
 
-  public getGainLast24Hours(): number {
-    return this.gainLast24Hours;
-  }
+    get gainLast24Hours(): number {
+        return this._gainLast24Hours;
+    }
 
-  public getTotalWallet(): number {
-    return this.totalWallet;
-  }
+    get totalWallet(): number {
+        return this._totalWallet;
+    }
 
-  public getTotalWalletDifference(): number {
-    return this.totalWalletDifference;
-  }
-
+    get totalWalletDifference(): number {
+        return this._totalWalletDifference;
+    }
 }

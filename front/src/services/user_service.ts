@@ -1,7 +1,7 @@
 import axios from "axios";
 import {RegisterDo, RegisterPayloadDo} from "../models/do/register";
 import {LoginDo, LoginPayloadDo} from "../models/do/login";
-import {LOGIN_ROUTE, REGISTER_ROUTE} from "./api_routes";
+import {SERVER_LOGIN_ROUTE, SERVER_REGISTER_ROUTE} from "./api_routes";
 
 export class UserService {
 
@@ -11,7 +11,7 @@ export class UserService {
 
     public async login(payload: LoginPayloadDo): Promise<LoginDo> {
         console.log('Try to login with ', payload);
-        return axios.post<LoginDo>(LOGIN_ROUTE, payload)
+        return axios.post<LoginDo>(SERVER_LOGIN_ROUTE, payload)
             .then((response) => {
                 const status = response.status;
                 if (status === 200) {
@@ -27,7 +27,7 @@ export class UserService {
     }
 
     public async register(payload: RegisterPayloadDo): Promise<RegisterDo> {
-        return axios.post<RegisterDo>(REGISTER_ROUTE, payload)
+        return axios.post<RegisterDo>(SERVER_REGISTER_ROUTE, payload)
             .then((response) => {
                 const status = response.status;
                 if (status === 201) {

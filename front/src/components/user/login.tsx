@@ -8,6 +8,7 @@ import {LoginPayloadDo} from '../../models/do/login';
 import {useDispatch} from 'react-redux'
 import {login, logout} from '../../state/loginSlice';
 import {ProfileProps, purge, update} from "../../state/profileSlice";
+import {TokenService} from "../../services/token_service";
 
 const TOKEN_FIELD = 'api-token';
 
@@ -41,14 +42,14 @@ export default function LoginForm({userService}: LoginProps) {
                     setLogged(true);
                     loginDispatcher(login());
                     const data = response.data;
-                    window.localStorage.setItem(TOKEN_FIELD, data.token);
+                    TokenService.save(data.token);
                     profileDispatcher(update(new ProfileProps(data.name, data.email)));
                 }
             })
             .catch((_error) => {
                 setLogged(false);
                 loginDispatcher(logout());
-                window.localStorage.setItem(TOKEN_FIELD, '');
+                TokenService.reset();
                 profileDispatcher(purge());
             });
     }

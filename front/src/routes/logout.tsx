@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux'
 import {logout} from '../state/loginSlice';
 import {purge} from "../state/profileSlice";
 
-export default function Logout() {
+export default function LogoutRoute() {
 
     const loginDispatcher = useDispatch();
     const profileDispatcher = useDispatch();
@@ -12,6 +12,6 @@ export default function Logout() {
     profileDispatcher(purge());
 
     return (
-        <p>You have been log out successfuly</p>
+        <p>You have been log out successfully</p>
     );
 }

@@ -1,6 +1,6 @@
 export class LoginDo {
-    private readonly _success: boolean;
-    private readonly _data: LoginDataDo;
+    private _success: boolean;
+    private _data: LoginDataDo;
 
     public constructor(success: boolean, data: LoginDataDo) {
         this._success = success;
@@ -17,9 +17,9 @@ export class LoginDo {
 }
 
 export class LoginDataDo {
-    private readonly _name: string;
-    private readonly _email: string;
-    private readonly _token: string;
+    private _name: string;
+    private _email: string;
+    private _token: string;
 
     public constructor(name: string, email: string, token: string) {
         this._name = name;
@@ -41,8 +41,8 @@ export class LoginDataDo {
 }
 
 export class LoginPayloadDo {
-    private readonly email: string;
-    private readonly password: string;
+    private email: string;
+    private password: string;
 
     public constructor(email: string, password: string) {
         this.email = email;
