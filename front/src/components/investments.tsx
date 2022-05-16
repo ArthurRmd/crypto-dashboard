@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import {InvestmentsService} from "../services/investments_service";
 import {InvestmentDataDo} from "../models/do/investment";
 import {TokenService} from "../services/token_service";
+import {Toaster} from "./toaster";
 
 
 export interface InvestmentsComponentProps {
@@ -17,18 +18,29 @@ export interface InvestmentsComponentProps {
 
 export function InvestmentsComponent({investmentsService}: InvestmentsComponentProps) {
 
+    const [isAuthenticated, setAuthenticated] = useState(false);
     const [investments, setInvestments] = useState<InvestmentDataDo[]>([]);
 
     useEffect(() => {
-        investmentsService.fetchInvestments(TokenService.getToken())
-            .then(investments => {
-                setInvestments(investments.data)
-            })
-            .catch(error => console.log(error));
+        try {
+            investmentsService.fetchInvestments(TokenService.getToken())
+                .then(investments => {
+                    setInvestments(investments.data)
+                })
+                .catch(error => console.log(error));
+            setAuthenticated(true);
+        } catch (e) {
+            setAuthenticated(false);
+        }
     }, []);
 
     const headers = ["Symbol", "Name", "Prise USD ($)", "Change in last 24h (%)", "Last updated"];
 
+    if (!isAuthenticated) {
+        return (
+            <Toaster severity={"error"} message={"You must be connected !"}/>
+        );
+    }
     return (
         <TableContainer component={Paper}>
             <Table sx={{minWidth: 650}} aria-label="simple table">
