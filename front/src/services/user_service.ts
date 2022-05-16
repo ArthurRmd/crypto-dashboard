@@ -18,7 +18,7 @@ export class UserService {
                     return Promise.resolve(response.data);
                 }
 
-                throw new Error('Failed to login with' + payload.getEmail());
+                throw new Error('Failed to login with' + payload.email);
             })
             .catch((error) => {
                 console.log(error);

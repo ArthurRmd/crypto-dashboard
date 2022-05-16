@@ -35,7 +35,7 @@ export default function LoginForm({userService}: LoginProps) {
     }
 
     function handleLogin() {
-        const payload = new LoginPayloadDo(email, password);
+        const payload = {email: email, password: password};
         userService.login(payload)
             .then((response) => {
                 if (response.success) {

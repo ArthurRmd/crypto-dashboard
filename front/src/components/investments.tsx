@@ -46,9 +46,9 @@ export function InvestmentsComponent({investmentsService}: InvestmentsComponentP
                             >
                                 <TableCell>{crypto.symbol}</TableCell>
                                 <TableCell>{crypto.name}</TableCell>
-                                <TableCell>{crypto.priceUsd}</TableCell>
-                                <TableCell>{crypto.changePercent24h}</TableCell>
-                                <TableCell>{crypto.updatedAt.toDateString()}</TableCell>
+                                <TableCell>{crypto.price_usd}</TableCell>
+                                <TableCell>{crypto.change_percent_24h}</TableCell>
+                                <TableCell>{crypto.updated_at}</TableCell>
                             </TableRow>
                         )
                     })}

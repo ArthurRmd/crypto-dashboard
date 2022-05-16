@@ -45,12 +45,12 @@ export default function RegisterForm({userService}: RegisterProps) {
 
     function handleRegistration() {
         if (password === confirmPassword) {
-            const payload = new RegisterPayloadDo(name, email, password);
+            const payload = {name: name, email: email, password: password};
             userService.register(payload)
                 .then((response) => {
                     setRegistrationComplete(true);
                     loginDispatcher(login());
-                    const data = response.getData();
+                    const data = response.data;
                     profileDispatcher(update(new ProfileProps(data.name, data.email)));
                 })
                 .catch((_error) => {
