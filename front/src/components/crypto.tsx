@@ -1,16 +1,26 @@
 import React, {useEffect, useState} from "react";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import {CryptoService} from "../services/crypto_service";
 import {DashBoardCryptDo} from "../models/do/dashboard_crypto";
 
+import {DataGrid, GridColDef} from '@mui/x-data-grid';
+
 export interface CryptoComponentProps {
     cryptoService: CryptoService;
+}
+
+function convertRows(cryptos: DashBoardCryptDo[]) {
+    const rows = [];
+    for (const key in cryptos) {
+        let crypto = cryptos[key];
+        rows.push({
+            id: key,
+            currency: crypto.currencyName,
+            gain_24h: crypto.gainLast24Hours,
+            total_wallet: crypto.totalWallet,
+            total: crypto.totalWalletDifference,
+        });
+    }
+    return rows;
 }
 
 export default function CryptoComponent({cryptoService}: CryptoComponentProps) {
@@ -24,31 +34,23 @@ export default function CryptoComponent({cryptoService}: CryptoComponentProps) {
             .catch(error => console.log(error));
     }, []);
 
-    const headers = ["Currency", "24h", "Total wallet", "+/- Total"];
+    const columns: GridColDef[] = [
+        {field: 'currency', headerName: 'Currency', width: 150},
+        {field: 'gain_24h', headerName: 'Gain 24h', width: 150},
+        {field: 'total_wallet', headerName: 'Total wallet', width: 150},
+        {field: 'total', headerName: '+/- Total', width: 150},
+    ];
 
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{minWidth: 650}} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        {headers.map((header) => <TableCell> {header} </TableCell>)}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {cryptos.map((crypto) => (
-                        <TableRow
-                            key={crypto.currencyName}
-                            sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                        >
-                            <TableCell>{crypto.currencyName}</TableCell>
-                            <TableCell>{crypto.gainLast24Hours}</TableCell>
-                            <TableCell>{crypto.totalWallet}</TableCell>
-                            <TableCell>{crypto.totalWalletDifference}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-
-        </TableContainer>
+        <div style={{height: 400, width: '100%'}}>
+            <DataGrid
+                rows={convertRows(cryptos)}
+                columns={columns}
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+                checkboxSelection
+                disableSelectionOnClick
+            />
+        </div>
     );
 }
