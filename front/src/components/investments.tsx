@@ -1,19 +1,29 @@
 import React, {useEffect, useState} from "react";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import {InvestmentsService} from "../services/investments_service";
 import {InvestmentDataDo} from "../models/do/investment";
 import {TokenService} from "../services/token_service";
 import {Toaster} from "./toaster";
+import {DataGrid, GridColDef} from '@mui/x-data-grid';
 
 
 export interface InvestmentsComponentProps {
     investmentsService: InvestmentsService;
+}
+
+function convertRows(investments: InvestmentDataDo[]) {
+    const rows = [];
+    for (const key in investments) {
+        let crypto = investments[key].crypto;
+        rows.push({
+            id: key,
+            symbol: crypto.symbol,
+            name: crypto.name,
+            price_usd: crypto.price_usd,
+            change_last_24h: crypto.change_percent_24h,
+            last_updated: crypto.updated_at
+        });
+    }
+    return rows;
 }
 
 export function InvestmentsComponent({investmentsService}: InvestmentsComponentProps) {
@@ -34,39 +44,30 @@ export function InvestmentsComponent({investmentsService}: InvestmentsComponentP
         }
     }, []);
 
-    const headers = ["Symbol", "Name", "Prise USD ($)", "Change in last 24h (%)", "Last updated"];
+    const columns: GridColDef[] = [
+        {field: 'symbol', headerName: 'Symbol', width: 150},
+        {field: 'name', headerName: 'Name', width: 150},
+        {field: 'price_usd', headerName: 'Prise USD ($)', width: 150},
+        {field: 'change_last_24h', headerName: 'Change in last 24h (%)', width: 150},
+        {field: 'last_updated', headerName: 'Last updated', width: 150},
+    ];
 
     if (!isAuthenticated) {
         return (
             <Toaster severity={"error"} message={"You must be connected !"}/>
         );
     }
-    return (
-        <TableContainer component={Paper}>
-            <Table sx={{minWidth: 650}} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        {headers.map((header) => <TableCell> {header} </TableCell>)}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {investments.map((investment) => {
-                        const crypto = investment.crypto;
-                        return (<TableRow
-                                key={crypto.id}
-                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                            >
-                                <TableCell>{crypto.symbol}</TableCell>
-                                <TableCell>{crypto.name}</TableCell>
-                                <TableCell>{crypto.price_usd}</TableCell>
-                                <TableCell>{crypto.change_percent_24h}</TableCell>
-                                <TableCell>{crypto.updated_at}</TableCell>
-                            </TableRow>
-                        )
-                    })}
-                </TableBody>
-            </Table>
 
-        </TableContainer>
+    return (
+        <div style={{height: 400, width: '100%'}}>
+            <DataGrid
+                rows={convertRows(investments)}
+                columns={columns}
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+                checkboxSelection
+                disableSelectionOnClick
+            />
+        </div>
     );
 }
