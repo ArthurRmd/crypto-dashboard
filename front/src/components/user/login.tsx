@@ -4,13 +4,10 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {UserService} from '../../services/user_service';
 import {Navigate} from "react-router-dom";
-import {LoginPayloadDo} from '../../models/do/login';
 import {useDispatch} from 'react-redux'
 import {login, logout} from '../../state/loginSlice';
-import {ProfileProps, purge, update} from "../../state/profileSlice";
+import {purge, update} from "../../state/profileSlice";
 import {TokenService} from "../../services/token_service";
-
-const TOKEN_FIELD = 'api-token';
 
 export interface LoginProps {
     userService: UserService;
@@ -41,9 +38,9 @@ export default function LoginForm({userService}: LoginProps) {
                 if (response.success) {
                     setLogged(true);
                     loginDispatcher(login());
-                    const data = response.data;
-                    TokenService.save(data.token);
-                    profileDispatcher(update(new ProfileProps(data.name, data.email)));
+                    const user = response.data.user;
+                    TokenService.save(response.data.token);
+                    profileDispatcher(update({name: user.name, email: user.email}));
                 }
             })
             .catch((_error) => {

@@ -4,9 +4,14 @@ export interface LoginDo {
 }
 
 export interface LoginDataDo {
+    token: string;
+    user: LoginUserDo;
+}
+
+export interface LoginUserDo {
+    id: number;
     name: string;
     email: string;
-    token: string;
 }
 
 export interface LoginPayloadDo {

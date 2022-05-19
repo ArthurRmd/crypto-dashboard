@@ -54,7 +54,7 @@ export function InvestmentsComponent({investmentsService}: InvestmentsComponentP
 
     if (!isAuthenticated) {
         return (
-            <Toaster severity={"error"} message={"You must be connected !"}/>
+            <Toaster default_open={true} severity={"error"} message={"You must be connected !"}/>
         );
     }
 

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {CryptoService} from "../services/crypto_service";
-import {DashBoardCryptDo} from "../models/do/dashboard_crypto";
+import {DashBoardCryptDataDo} from "../models/do/dashboard_crypto";
 
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
 
@@ -8,16 +8,16 @@ export interface CryptoComponentProps {
     cryptoService: CryptoService;
 }
 
-function convertRows(cryptos: DashBoardCryptDo[]) {
+function convertRows(cryptos: DashBoardCryptDataDo[]) {
     const rows = [];
     for (const key in cryptos) {
         let crypto = cryptos[key];
         rows.push({
             id: key,
-            currency: crypto.currencyName,
-            gain_24h: crypto.gainLast24Hours,
-            total_wallet: crypto.totalWallet,
-            total: crypto.totalWalletDifference,
+            currency: crypto.name,
+            symbol: crypto.symbol,
+            price_usd: crypto.price_usd,
+            change_percent_24h: crypto.change_percent_24h,
         });
     }
     return rows;
@@ -25,7 +25,7 @@ function convertRows(cryptos: DashBoardCryptDo[]) {
 
 export default function CryptoComponent({cryptoService}: CryptoComponentProps) {
 
-    const [cryptos, setCryptos] = useState<DashBoardCryptDo[]>([]);
+    const [cryptos, setCryptos] = useState<DashBoardCryptDataDo[]>([]);
 
 
     useEffect(() => {
@@ -36,9 +36,9 @@ export default function CryptoComponent({cryptoService}: CryptoComponentProps) {
 
     const columns: GridColDef[] = [
         {field: 'currency', headerName: 'Currency', width: 150},
-        {field: 'gain_24h', headerName: 'Gain 24h', width: 150},
-        {field: 'total_wallet', headerName: 'Total wallet', width: 150},
-        {field: 'total', headerName: '+/- Total', width: 150},
+        {field: 'symbol', headerName: 'Symbol', width: 150},
+        {field: 'price_usd', headerName: 'Price USD ($)', width: 150},
+        {field: 'change_percent_24h', headerName: 'Change last 24h (%)', width: 150},
     ];
 
     return (

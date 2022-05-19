@@ -5,7 +5,7 @@ import InvestmentsRoute from "./investments";
 import RegisterRoute from "./register";
 import LoginRoute from "./login";
 import LogoutRoute from "./logout";
-import ProfileRoute from "./profile";
+import SettingsRoute from "./settings";
 import React from "react";
 
 export const HOME_ROUTE = "/";
@@ -24,6 +24,6 @@ export function CryptoDashBoardRouter() {
         <Route path={REGISTER_ROUTE} element={<RegisterRoute/>}/>
         <Route path={SIGN_IN_ROUTE} element={<LoginRoute/>}/>
         <Route path={LOG_OUT_ROUTE} element={<LogoutRoute/>}/>
-        <Route path={PROFILE_ROUTE} element={<ProfileRoute/>}/>
+        <Route path={PROFILE_ROUTE} element={<SettingsRoute/>}/>
     </Routes>;
 }

@@ -1,4 +1,4 @@
-import {DashBoardCryptDo} from "../models/do/dashboard_crypto";
+import {DashBoardCryptDataDo, DashBoardCryptDo} from "../models/do/dashboard_crypto";
 import axios from "axios";
 import {SERVER_FETCH_NEW_CHANGES} from "./api_routes";
 
@@ -11,12 +11,12 @@ export class CryptoService {
     private constructor() {
     }
 
-    public async fetchNewChanges(): Promise<DashBoardCryptDo[]> {
-        return await axios.get<DashBoardCryptDo[]>(SERVER_FETCH_NEW_CHANGES)
+    public async fetchNewChanges(): Promise<DashBoardCryptDataDo[]> {
+        return await axios.get<DashBoardCryptDo>(SERVER_FETCH_NEW_CHANGES)
             .then((response) => {
                 const status = response.status;
                 if (status === 200) {
-                    return response.data;
+                    return response.data.data;
                 }
 
                 throw new Error('Failed to fetch new changes for dashboard on ' + SERVER_FETCH_NEW_CHANGES + ' with status ' + status);

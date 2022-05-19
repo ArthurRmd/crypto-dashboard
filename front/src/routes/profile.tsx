@@ -1,6 +1,0 @@
-import React from 'react';
-import ProfileComponent from "../components/user/profile";
-
-export default function ProfileRoute() {
-    return (<ProfileComponent/>);
-}

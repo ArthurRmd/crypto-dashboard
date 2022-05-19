@@ -16,5 +16,5 @@ export default function ProfileComponent() {
             </Container>
         );
     }
-    return (<p>404 - You should not be there you bad boy</p>);
+    return (<p></p>);
 }

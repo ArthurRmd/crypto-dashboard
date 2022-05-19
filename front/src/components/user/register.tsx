@@ -3,11 +3,10 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {UserService} from '../../services/user_service';
-import {RegisterPayloadDo} from '../../models/do/register';
 import {Navigate} from "react-router-dom";
 import {useDispatch} from 'react-redux'
 import {login, logout} from '../../state/loginSlice';
-import {ProfileProps, purge, update} from "../../state/profileSlice";
+import {purge, update} from "../../state/profileSlice";
 
 export interface RegisterProps {
     userService: UserService;
@@ -51,7 +50,7 @@ export default function RegisterForm({userService}: RegisterProps) {
                     setRegistrationComplete(true);
                     loginDispatcher(login());
                     const data = response.data;
-                    profileDispatcher(update(new ProfileProps(data.name, data.email)));
+                    profileDispatcher(update({name: data.name, email: data.email}));
                 })
                 .catch((_error) => {
                     setRegistrationComplete(false);
@@ -100,7 +99,7 @@ export default function RegisterForm({userService}: RegisterProps) {
                     onChange={handleChangeConfirmPassword}
                 />
             </div>
-            <Button variant="contained" color="primary" type="submit" onClick={handleRegistration}>
+            <Button variant="contained" color="primary" onClick={handleRegistration}>
                 Register
             </Button>
         </Box>

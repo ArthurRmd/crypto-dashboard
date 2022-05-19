@@ -1,37 +1,24 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-export class ProfileProps {
-    private _name: string;
-    private _email: string;
+function empty(): ProfileProps {
+    return {name: "", email: ""};
+}
 
-    public static empty(): ProfileProps {
-        return new ProfileProps("", "");
-    }
-
-    public constructor(name: string, email: string) {
-        this._name = name;
-        this._email = email;
-    }
-
-    get name(): string {
-        return this._name;
-    }
-
-    get email(): string {
-        return this._email;
-    }
+export interface ProfileProps {
+    name: string;
+    email: string;
 }
 
 export const profileSlice = createSlice({
     name: 'profile',
     initialState: {
-        value: ProfileProps.empty(),
+        value: empty(),
     },
     reducers: {
         purge: (state) => {
-            state.value = ProfileProps.empty()
+            state.value = empty();
         },
-        update: (state, action) => {
+        update: (state, action: PayloadAction<ProfileProps>) => {
             state.value = action.payload;
         },
     }

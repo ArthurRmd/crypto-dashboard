@@ -27,7 +27,7 @@ class InnerMainMenuItem {
 
     public render() {
         return (
-            <MenuItem>
+            <MenuItem key={this.title}>
                 <Link to={this.redirect}>
                     {this.title}
                 </Link>
@@ -40,7 +40,6 @@ class InnerMainMenuItem {
 const BASE_ITEMS = [
     new InnerMainMenuItem("Dashboard", DASHBOARD_ROUTE),
     new InnerMainMenuItem("My investments", INVESTMENTS_ROUTE),
-    new InnerMainMenuItem("Settings", "/settings"),
 ];
 
 const LOGIN_ITEMS = [
