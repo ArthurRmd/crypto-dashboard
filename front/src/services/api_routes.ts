@@ -10,4 +10,5 @@ export const SERVER_LOGIN_ROUTE: string = BASE_API + '/users/login';
 // Investments
 
 export const SERVER_INVESTMENTS_ROUTE: string = BASE_API + '/investments';
+export const SERVER_INVESTMENT_BUY_ROUTE: string = BASE_API + '/investments/{crypto}';
 

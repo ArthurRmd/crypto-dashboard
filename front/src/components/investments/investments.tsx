@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {InvestmentsService} from "../services/investments_service";
-import {InvestmentDataDo} from "../models/do/investment";
-import {TokenService} from "../services/token_service";
-import {Toaster} from "./toaster";
+import {InvestmentsService} from "../../services/investments_service";
+import {InvestmentDataDo} from "../../models/do/investment";
+import {TokenService} from "../../services/token_service";
+import {Toaster} from "../toaster";
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
 
 
