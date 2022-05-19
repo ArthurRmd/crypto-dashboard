@@ -50,6 +50,6 @@ class InvestmentController extends Controller
             ->json([
                 'success' => true,
                 'data' => $investment,
-            ]);
+            ],201);
     }
 }
