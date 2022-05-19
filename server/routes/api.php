@@ -42,7 +42,7 @@ Route::controller(CryptoController::class)
     ->prefix('cryptos')
     ->name('cryptos.')
     ->group(function () {
-        Route::get('/', 'index');
+        Route::get('/{page?}', 'index')->where('page','[0-9]+');
     });
 
 

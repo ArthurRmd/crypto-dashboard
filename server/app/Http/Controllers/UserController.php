@@ -28,7 +28,7 @@ class UserController extends Controller
             ->json([
                 'success' => true,
                 'data' => $user,
-            ]);
+            ],201);
     }
 
     /**
@@ -38,14 +38,14 @@ class UserController extends Controller
     public function login(LoginUserRequest $request): JsonResponse
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $auth = Auth::user();
-            $token = $auth?->createToken('LaravelSanctumAuth')
+            $user = Auth::user();
+            $token = $user?->createToken('LaravelSanctumAuth')
                 ?->plainTextToken;
 
             return response()
                 ->json([
                     'success' => true,
-                    'data' => compact('token'),
+                    'data' => compact('token','user'),
                 ]);
         }
 
