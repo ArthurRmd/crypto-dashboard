@@ -8,11 +8,14 @@ import {Toaster} from "../toaster";
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
+import {changeForex} from "../../state/forexSlice";
 
 export default function SettingsForm() {
     const langDispatcher = useDispatch();
+    const forexDispatcher = useDispatch();
 
     const [lang, setLang] = useState('en');
+    const [forex, setForex] = useState('EUR');
     const [isSaved, setSaved] = useState(false);
 
     function handleChangeLang(event: SelectChangeEvent) {
@@ -20,8 +23,14 @@ export default function SettingsForm() {
         setSaved(false);
     }
 
+    function handleChangeLForex(event: SelectChangeEvent) {
+        setForex(event.target.value);
+        setSaved(false);
+    }
+
     function handleSubmit() {
         langDispatcher(changeLang(lang));
+        forexDispatcher(changeForex(forex));
         setSaved(true);
     }
 
@@ -40,11 +49,24 @@ export default function SettingsForm() {
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={lang}
-                        label="Age"
+                        label="Lang"
                         onChange={handleChangeLang}
                     >
                         <MenuItem value={Lang.English}>English</MenuItem>
                     </Select>
+
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={forex}
+                        label="Age"
+                        onChange={handleChangeLForex}
+                    >
+                        <MenuItem value="EUR">Euro</MenuItem>
+                        <MenuItem value="USD">US Dollar</MenuItem>
+                    </Select>
+
+
                     <Button variant="contained" color="primary" onClick={handleSubmit}>
                         Save
                     </Button>

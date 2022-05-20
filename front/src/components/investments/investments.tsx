@@ -13,14 +13,16 @@ export interface InvestmentsComponentProps {
 function convertRows(investments: InvestmentDataDo[]) {
     const rows = [];
     for (const key in investments) {
-        let crypto = investments[key].crypto;
+        const investment = investments[key];
+        const crypto = investment.crypto;
         rows.push({
             id: key,
             symbol: crypto.symbol,
             name: crypto.name,
             price_usd: crypto.price_usd,
             change_last_24h: crypto.change_percent_24h,
-            last_updated: crypto.updated_at
+            last_updated: crypto.updated_at,
+            created_at: investment.created_at,
         });
     }
     return rows;
@@ -49,7 +51,8 @@ export function InvestmentsComponent({investmentsService}: InvestmentsComponentP
         {field: 'name', headerName: 'Name', width: 150},
         {field: 'price_usd', headerName: 'Prise USD ($)', width: 150},
         {field: 'change_last_24h', headerName: 'Change in last 24h (%)', width: 150},
-        {field: 'last_updated', headerName: 'Last updated', width: 150},
+        {field: 'created_at', headerName: 'Created At', width: 200},
+        {field: 'last_updated', headerName: 'Last updated', width: 200},
     ];
 
     if (!isAuthenticated) {
