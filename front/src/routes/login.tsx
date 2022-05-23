@@ -7,6 +7,9 @@ export default function LoginRoute() {
     const userService = UserService.create();
 
     return (
-        <LoginForm userService={userService}/>
+        <div>
+            <h1>Sign in</h1>
+            <LoginForm userService={userService}/>
+        </div>
     );
 }

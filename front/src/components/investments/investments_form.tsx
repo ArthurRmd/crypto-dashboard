@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import {InvestmentsService} from "../../services/investments_service";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
-import {Select} from "@mui/material";
+import {InputAdornment, InputLabel, Select} from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import {SelectChangeEvent} from "@mui/material/Select";
 import {TokenService} from "../../services/token_service";
@@ -43,20 +43,22 @@ export function InvestmentsForm({investmentsService}: InvestmentsFormProps) {
             noValidate
             autoComplete="off"
         >
-            <FormControl fullWidth>
+            <FormControl  sx={{ m: 2, minWidth: 450 }}>
+                <InputLabel id="label-buy-crypto">Age</InputLabel>
                 <Select
-                    labelId="demo-simple-select-label"
+                    labelId="label-buy-crypto"
                     id="demo-simple-select"
                     value={cryptoToBuy}
                     label="Crypto to buy"
+                    fullWidth={true}
                     onChange={handleChangeCryptoChoice}
                 >
                     <MenuItem value="1">BTC</MenuItem>
                     <MenuItem value="2">ETH</MenuItem>
                 </Select>
 
-
                 <TextField
+                    style ={{width: '100%', margin:'10px 0'}}
                     required
                     id="outlined-required"
                     label="Amount"
@@ -67,6 +69,9 @@ export function InvestmentsForm({investmentsService}: InvestmentsFormProps) {
                     BUY NOW
                 </Button>
             </FormControl>
+
+
+
         </Box>
 
     );

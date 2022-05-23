@@ -6,6 +6,7 @@ import MainMenu from './components/menu/main_menu';
 import {Provider} from 'react-redux'
 import store from './store'
 import {CryptoDashBoardRouter} from "./routes/router";
+import {Container} from "@mui/material";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -16,7 +17,9 @@ root.render(
         <Provider store={store}>
             <BrowserRouter>
                 <MainMenu/>
-                <CryptoDashBoardRouter/>
+                <Container maxWidth="lg">
+                    <CryptoDashBoardRouter/>
+                </Container>
             </BrowserRouter>
         </Provider>
     </React.StrictMode>
