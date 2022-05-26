@@ -1,22 +1,33 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {useDispatch} from 'react-redux'
 import Box from "@mui/material/Box";
 import Button from '@mui/material/Button';
-import {changeLang, Lang} from "../../state/langSlice";
+import {changeLang} from "../../state/langSlice";
 import {Toaster} from "../toaster";
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
 import {changeForex} from "../../state/forexSlice";
+import {SettingsService} from "../../services/settings_service";
 
-export default function SettingsForm() {
+export interface SettingsFormProps {
+    settingsService: SettingsService;
+}
+
+export default function SettingsForm({settingsService}: SettingsFormProps) {
     const langDispatcher = useDispatch();
     const forexDispatcher = useDispatch();
 
     const [lang, setLang] = useState('en');
     const [forex, setForex] = useState('EUR');
     const [isSaved, setSaved] = useState(false);
+    const [langs, setLangs] = useState<string[]>([]);
+
+    useEffect(() => {
+        settingsService.fetchLangs()
+            .then(langs => setLangs(langs));
+    }, []);
 
     function handleChangeLang(event: SelectChangeEvent) {
         setLang(event.target.value);
@@ -52,7 +63,7 @@ export default function SettingsForm() {
                         label="Lang"
                         onChange={handleChangeLang}
                     >
-                        <MenuItem value={Lang.English}>English</MenuItem>
+                        {langs.map(lang => <MenuItem value={lang}>{lang}</MenuItem>)}
                     </Select>
 
                     <Select
