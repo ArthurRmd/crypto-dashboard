@@ -8,6 +8,9 @@ import {useDispatch} from 'react-redux'
 import {login, logout} from '../../state/loginSlice';
 import {purge, update} from "../../state/profileSlice";
 import {TokenService} from "../../services/token_service";
+import {changeLang} from "../../state/langSlice";
+import {changeForex} from "../../state/forexSlice";
+import {LoginUserDo} from "../../models/do/login";
 
 export interface LoginProps {
     userService: UserService;
@@ -17,6 +20,8 @@ export default function LoginForm({userService}: LoginProps) {
 
     const loginDispatcher = useDispatch();
     const profileDispatcher = useDispatch();
+    const langDispatcher = useDispatch();
+    const forexDispatcher = useDispatch();
 
     const [isLogged, setLogged] = useState(false);
     // Form fields
@@ -31,16 +36,21 @@ export default function LoginForm({userService}: LoginProps) {
         setPassword(event.target.value);
     }
 
+    function updateDispatchers(user: LoginUserDo) {
+        loginDispatcher(login());
+        profileDispatcher(update({name: user.name, email: user.email}));
+        langDispatcher(changeLang(user.lang));
+        forexDispatcher(changeForex(user.forex));
+    }
+
     function handleLogin() {
         const payload = {email: email, password: password};
         userService.login(payload)
             .then((response) => {
                 if (response.success) {
                     setLogged(true);
-                    loginDispatcher(login());
-                    const user = response.data.user;
                     TokenService.save(response.data.token);
-                    profileDispatcher(update({name: user.name, email: user.email}));
+                    updateDispatchers(response.data.user);
                 }
             })
             .catch((_error) => {
