@@ -1,7 +1,5 @@
 import React from "react";
 import {useSelector} from 'react-redux'
-import MenuItem from '@mui/material/MenuItem';
-import {Link} from "react-router-dom";
 import {
     DASHBOARD_ROUTE,
     INVESTMENTS_ROUTE,
@@ -15,33 +13,7 @@ import {AppBar, Container, IconButton, Toolbar, Typography} from "@mui/material"
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-
-class InnerMainMenuItem {
-    private readonly title: string;
-    private readonly redirect: string;
-    private readonly isLightLink: boolean;
-
-    public constructor(
-        title: string,
-        redirect: string,
-        isLightLink: boolean
-    ) {
-        this.title = title;
-        this.redirect = redirect;
-        this.isLightLink = isLightLink;
-    }
-
-    public render() {
-        return (
-            <MenuItem key={this.title}>
-                <Link to={this.redirect} className={this.isLightLink ? 'light-link' : 'dark-link'}>
-                    {this.title}
-                </Link>
-            </MenuItem>
-        );
-    }
-
-}
+import MainMenuItem from "./main_menu_item";
 
 const BASE_ITEMS = [
     {
@@ -75,15 +47,6 @@ const LOGOUT_ITEMS = [
         "route": LOG_OUT_ROUTE
     }
 ];
-
-function getItemsRelatedToLoginStatus(loginStatus: boolean) {
-    if (!loginStatus) {
-        return LOGIN_ITEMS;
-    }
-    return LOGOUT_ITEMS;
-}
-
-const settings = ['Profile', 'Account', 'Logout'];
 
 export default function MainMenu() {
 
@@ -160,7 +123,8 @@ export default function MainMenu() {
                                 display: {xs: 'block', md: 'none'},
                             }}
                         >
-                            {menuItems.map((item) => new InnerMainMenuItem(item.name, item.route, false).render())}
+                            {menuItems.map((item) => <MainMenuItem title={item.name} redirect={item.route}
+                                                                   isLightLink={false}/>)}
                         </Menu>
                     </Box>
                     <Typography
@@ -182,11 +146,14 @@ export default function MainMenu() {
                         Crypto Dashboard
                     </Typography>
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                        {menuItems.map((item) => new InnerMainMenuItem(item.name, item.route, true).render())}
+                        {menuItems.map((item) => <MainMenuItem title={item.name} redirect={item.route}
+                                                               isLightLink={true}/>)}
                     </Box>
 
                     <Box sx={{flexGrow: 0, display: {xs: 'none', md: 'flex'}}}>
-                            {(!isLogged?LOGIN_ITEMS:LOGOUT_ITEMS).map((item) => new InnerMainMenuItem(item.name, item.route, true).render())}
+                        {(!isLogged ? LOGIN_ITEMS : LOGOUT_ITEMS).map((item) => <MainMenuItem title={item.name}
+                                                                                              redirect={item.route}
+                                                                                              isLightLink={true}/>)}
                     </Box>
                 </Toolbar>
             </Container>
