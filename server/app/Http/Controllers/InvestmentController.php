@@ -6,6 +6,7 @@ use App\Http\Requests\InvestmentRequest\StoreInvestmentRequest;
 use App\Models\Crypto;
 use App\Models\Investment;
 use App\Models\User;
+use App\Service\ConvertCurrencyService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -22,10 +23,19 @@ class InvestmentController extends Controller
 
         $user->load('investments.crypto');
 
+        $investments = $user->investments;
+
+        $userCurrency = $user->forex_currency;
+        foreach ($investments as &$investment) {
+            $investment['price_forex'] = ConvertCurrencyService::usdTo($investment['price_usd'], $userCurrency);
+            $investment->crypto['price_forex'] =
+                ConvertCurrencyService::usdTo($investment->crypto['price_usd'], $userCurrency);
+        }
+
         return response()
             ->json([
                 'success' => true,
-                'data' => $user->investments,
+                'data' => $investments,
             ]);
     }
 
@@ -39,11 +49,11 @@ class InvestmentController extends Controller
     {
         $user = $request->user();
 
-        $investment =Investment::create([
-            'crypto_id'=> $crypto->id,
-            'user_id'=> $user->id,
-            'crypto_value'=> $request->get('price_usd') / $crypto->price_usd,
-            'price_usd'=> $request->get('price_usd'),
+        $investment = Investment::create([
+            'crypto_id' => $crypto->id,
+            'user_id' => $user->id,
+            'crypto_value' => $request->get('price_usd') / $crypto->price_usd,
+            'price_usd' => $request->get('price_usd'),
         ]);
 
         $investment->load('crypto');
@@ -52,6 +62,14 @@ class InvestmentController extends Controller
             ->json([
                 'success' => true,
                 'data' => $investment,
-            ],201);
+            ], 201);
+    }
+
+    public function delete(Investment $investment): JsonResponse
+    {
+        $investment = $investment->delete();
+
+        return response()
+            ->json([], 200);
     }
 }

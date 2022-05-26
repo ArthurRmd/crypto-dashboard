@@ -1,8 +1,10 @@
 <?php
 
+namespace App\Service;
+
 use App\Enums\ForexCurrency;
 
-class ConvertCurrency
+class ConvertCurrencyService
 {
 
     public static function usdTo(float $priceUsd, ForexCurrency $forexCurrency) :float

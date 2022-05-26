@@ -90,7 +90,7 @@ class UserController extends Controller
         ];
 
         if ($request->has('password')) {
-            $newData['password'] = $request->has('password');
+            $newData['password'] = bcrypt($request->get('password'));
         }
 
         $response = $user->update($newData);

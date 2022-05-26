@@ -32,10 +32,8 @@ Route::controller(UserController::class)
     ->group(function () {
         Route::post('/register', 'register');
         Route::post('/login', 'login');
-
         Route::get('/', 'getData')->middleware('auth:sanctum');
         Route::patch('/', 'update')->middleware('auth:sanctum');
-
     });
 
 
@@ -43,7 +41,7 @@ Route::controller(CryptoController::class)
     ->prefix('cryptos')
     ->name('cryptos.')
     ->group(function () {
-        Route::get('/{page?}', 'index')->where('page','[0-9]+');
+        Route::get('/{page?}', 'index')->where('page','[0-9]+')->middleware('auth:sanctum');
     });
 
 
@@ -53,6 +51,7 @@ Route::controller(InvestmentController::class)
     ->group(function () {
         Route::get('/', 'getUserData')->middleware('auth:sanctum');
         Route::post('/{crypto}', 'store')->middleware('auth:sanctum');
+        Route::delete('/{investment}', 'delete')->middleware('auth:sanctum');
     });
 
 
@@ -65,8 +64,8 @@ Route::controller(LanguageController::class)
     });
 
 Route::controller(\App\Http\Controllers\ForexCurrencyController::class)
-    ->prefix('forex-currency')
-    ->name('forex-currency.')
+    ->prefix('forex-currencies')
+    ->name('forex-currencies.')
     ->group(function () {
         Route::get('/', 'getAll');
         Route::post('/change', 'change')->middleware('auth:sanctum');
