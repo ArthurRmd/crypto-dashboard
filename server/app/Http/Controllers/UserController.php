@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ForexCurrency;
+use App\Enums\Language;
 use App\Http\Requests\UserRequest\LoginUserRequest;
 use App\Http\Requests\UserRequest\StoreUserRequest;
 use App\Models\User;
@@ -22,6 +24,8 @@ class UserController extends Controller
             'name' => $userRequest->get('name'),
             'email' => $userRequest->get('email'),
             'password' => bcrypt($userRequest->get('password')),
+            'language' => Language::FRENCH,
+            'forex_currency' => ForexCurrency::USD,
         ]);
 
         return response()
