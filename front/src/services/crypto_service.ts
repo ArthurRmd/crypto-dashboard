@@ -1,6 +1,6 @@
 import {DashBoardCryptDataDo, DashBoardCryptDo} from "../models/do/dashboard_crypto";
 import axios from "axios";
-import {SERVER_FETCH_NEW_CHANGES} from "./api_routes";
+import {BEARER, SERVER_FETCH_NEW_CHANGES} from "./api_routes";
 
 export class CryptoService {
 
@@ -11,8 +11,11 @@ export class CryptoService {
     private constructor() {
     }
 
-    public async fetchNewChanges(): Promise<DashBoardCryptDataDo[]> {
-        return await axios.get<DashBoardCryptDo>(SERVER_FETCH_NEW_CHANGES)
+    public async fetchNewChanges(token: string): Promise<DashBoardCryptDataDo[]> {
+        return await axios.get<DashBoardCryptDo>(
+            SERVER_FETCH_NEW_CHANGES,
+            {headers: {'Authorization': BEARER + token,}}
+        )
             .then((response) => {
                 const status = response.status;
                 if (status === 200) {

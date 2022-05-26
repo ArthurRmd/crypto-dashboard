@@ -123,7 +123,8 @@ export default function MainMenu() {
                                 display: {xs: 'block', md: 'none'},
                             }}
                         >
-                            {menuItems.map((item) => <MainMenuItem title={item.name} redirect={item.route}
+                            {menuItems.map((item) => <MainMenuItem key={item.name} title={item.name}
+                                                                   redirect={item.route}
                                                                    isLightLink={false}/>)}
                         </Menu>
                     </Box>
@@ -146,12 +147,13 @@ export default function MainMenu() {
                         Crypto Dashboard
                     </Typography>
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                        {menuItems.map((item) => <MainMenuItem title={item.name} redirect={item.route}
+                        {menuItems.map((item) => <MainMenuItem key={item.name} title={item.name} redirect={item.route}
                                                                isLightLink={true}/>)}
                     </Box>
 
                     <Box sx={{flexGrow: 0, display: {xs: 'none', md: 'flex'}}}>
-                        {(!isLogged ? LOGIN_ITEMS : LOGOUT_ITEMS).map((item) => <MainMenuItem title={item.name}
+                        {(!isLogged ? LOGIN_ITEMS : LOGOUT_ITEMS).map((item) => <MainMenuItem key={item.name}
+                                                                                              title={item.name}
                                                                                               redirect={item.route}
                                                                                               isLightLink={true}/>)}
                     </Box>

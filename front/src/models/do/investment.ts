@@ -20,6 +20,7 @@ export interface CryptoDo {
     name: string;
     symbol: string;
     price_usd: number;
+    price_forex: number;
     change_percent_24h: number;
     updated_at: string;
 }
