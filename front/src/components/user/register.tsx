@@ -50,7 +50,10 @@ export default function RegisterForm({userService}: RegisterProps) {
                     setRegistrationComplete(true);
                     loginDispatcher(login());
                     const data = response.data;
-                    profileDispatcher(update({name: data.name, email: data.email}));
+                    profileDispatcher(update({
+                        name: data.name,
+                        email: data.email
+                    }));
                 })
                 .catch((_error) => {
                     setRegistrationComplete(false);

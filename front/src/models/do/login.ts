@@ -12,8 +12,8 @@ export interface LoginUserDo {
     id: number;
     name: string;
     email: string;
-    lang: string;
-    forex: string;
+    language: string;
+    forex_currency: string;
 }
 
 export interface LoginPayloadDo {

@@ -1,8 +1,6 @@
 import {BuyCryptoPayloadDo, InvestmentDataDo, InvestmentDo, SingleInvestmentDo} from "../models/do/investment";
 import axios from "axios";
-import {SERVER_INVESTMENT_BUY_ROUTE, SERVER_INVESTMENTS_ROUTE} from "./api_routes";
-
-const BEARER = 'Bearer ';
+import {BEARER, SERVER_INVESTMENT_BUY_ROUTE, SERVER_INVESTMENTS_ROUTE} from "./api_routes";
 
 export class InvestmentsService {
 

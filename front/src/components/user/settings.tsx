@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import Box from "@mui/material/Box";
 import Button from '@mui/material/Button';
 import {changeLang} from "../../state/langSlice";
@@ -10,39 +10,52 @@ import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
 import {changeForex} from "../../state/forexSlice";
 import {SettingsService} from "../../services/settings_service";
+import {TokenService} from "../../services/token_service";
 
 export interface SettingsFormProps {
     settingsService: SettingsService;
 }
 
 export default function SettingsForm({settingsService}: SettingsFormProps) {
+    const lang: string = useSelector((state: any) => state.lang.value);
+    const forex_currency: string = useSelector((state: any) => state.forex.value);
+
     const langDispatcher = useDispatch();
     const forexDispatcher = useDispatch();
 
-    const [lang, setLang] = useState('en');
-    const [forex, setForex] = useState('EUR');
+    const [lang_form, setLangForm] = useState(lang);
+    const [forex_form, setForexForm] = useState(forex_currency);
     const [isSaved, setSaved] = useState(false);
     const [langs, setLangs] = useState<string[]>([]);
+    const [forexCurrencies, setForexCurrencies] = useState<string[]>([]);
 
     useEffect(() => {
         settingsService.fetchLangs()
             .then(langs => setLangs(langs));
     }, []);
 
+    useEffect(() => {
+        settingsService.fetchForexCurrencies()
+            .then(currencies => setForexCurrencies(currencies));
+    }, []);
+
     function handleChangeLang(event: SelectChangeEvent) {
-        setLang(event.target.value);
+        setLangForm(event.target.value);
         setSaved(false);
     }
 
     function handleChangeLForex(event: SelectChangeEvent) {
-        setForex(event.target.value);
+        setForexForm(event.target.value);
         setSaved(false);
     }
 
     function handleSubmit() {
-        langDispatcher(changeLang(lang));
-        forexDispatcher(changeForex(forex));
         setSaved(true);
+        settingsService.updateLang(TokenService.getToken(), {language: lang_form})
+            .then((_) => {
+                langDispatcher(changeLang(lang_form));
+            })
+        forexDispatcher(changeForex(forex_form));
     }
 
     return (
@@ -59,22 +72,25 @@ export default function SettingsForm({settingsService}: SettingsFormProps) {
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={lang}
+                        value={lang_form}
                         label="Lang"
                         onChange={handleChangeLang}
                     >
-                        {langs.map(lang => <MenuItem value={lang}>{lang}</MenuItem>)}
+                        {langs.map(l => <MenuItem value={l}>{l}</MenuItem>)}
                     </Select>
 
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={forex}
-                        label="Age"
+                        value={forex_form}
+                        label="forex"
                         onChange={handleChangeLForex}
                     >
-                        <MenuItem value="EUR">Euro</MenuItem>
-                        <MenuItem value="USD">US Dollar</MenuItem>
+                        {forexCurrencies.map(fc => {
+                            return (<MenuItem value={fc}>
+                                {fc.replace("_", " ")}
+                            </MenuItem>)
+                        })}
                     </Select>
 
 

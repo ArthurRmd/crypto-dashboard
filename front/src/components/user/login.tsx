@@ -38,9 +38,12 @@ export default function LoginForm({userService}: LoginProps) {
 
     function updateDispatchers(user: LoginUserDo) {
         loginDispatcher(login());
-        profileDispatcher(update({name: user.name, email: user.email}));
-        langDispatcher(changeLang(user.lang));
-        forexDispatcher(changeForex(user.forex));
+        profileDispatcher(update({
+            name: user.name,
+            email: user.email
+        }));
+        langDispatcher(changeLang(user.language));
+        forexDispatcher(changeForex(user.forex_currency));
     }
 
     function handleLogin() {
