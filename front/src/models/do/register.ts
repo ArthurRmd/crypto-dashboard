@@ -14,3 +14,7 @@ export interface RegisterDataDo {
     email: string;
     id: number;
 }
+
+export interface UpdateUserDo {
+    password: string;
+}
