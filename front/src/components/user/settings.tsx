@@ -55,7 +55,11 @@ export default function SettingsForm({settingsService}: SettingsFormProps) {
             .then((_) => {
                 langDispatcher(changeLang(lang_form));
             })
-        forexDispatcher(changeForex(forex_form));
+
+        settingsService.updateForexCurrency(TokenService.getToken(), {forex_currency: forex_form})
+            .then((_) => {
+                forexDispatcher(changeForex(forex_form));
+            })
     }
 
     return (

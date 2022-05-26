@@ -2,6 +2,7 @@ import axios from "axios";
 import {
     BEARER,
     SERVER_SETTINGS_FOREX_ROUTE,
+    SERVER_SETTINGS_FOREX_UPDATE_ROUTE,
     SERVER_SETTINGS_LANGS_ROUTE,
     SERVER_SETTINGS_LANGS_UPDATE_ROUTE
 } from "./api_routes";
@@ -51,7 +52,7 @@ export class SettingsService {
 
     public async updateForexCurrency(token: string, currency: ForexCurrencySettingsDo): Promise<void> {
         return await axios.post(
-            SERVER_SETTINGS_LANGS_UPDATE_ROUTE,
+            SERVER_SETTINGS_FOREX_UPDATE_ROUTE,
             currency,
             {headers: {'Authorization': BEARER + token,}}
         )
