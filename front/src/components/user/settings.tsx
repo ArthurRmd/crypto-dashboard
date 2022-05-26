@@ -11,12 +11,15 @@ import Select, {SelectChangeEvent} from '@mui/material/Select';
 import {changeForex} from "../../state/forexSlice";
 import {SettingsService} from "../../services/settings_service";
 import {TokenService} from "../../services/token_service";
+import {UserService} from "../../services/user_service";
+import TextField from "@mui/material/TextField";
 
 export interface SettingsFormProps {
     settingsService: SettingsService;
+    userService: UserService;
 }
 
-export default function SettingsForm({settingsService}: SettingsFormProps) {
+export default function SettingsForm({settingsService, userService}: SettingsFormProps) {
     const lang: string = useSelector((state: any) => state.lang.value);
     const forex_currency: string = useSelector((state: any) => state.forex.value);
 
@@ -25,9 +28,12 @@ export default function SettingsForm({settingsService}: SettingsFormProps) {
 
     const [lang_form, setLangForm] = useState(lang);
     const [forex_form, setForexForm] = useState(forex_currency);
-    const [isSaved, setSaved] = useState(false);
+    const [password_form, setPasswordForm] = useState("");
+    const [passwordConfirm_form, setPasswordConfirmForm] = useState("");
     const [langs, setLangs] = useState<string[]>([]);
     const [forexCurrencies, setForexCurrencies] = useState<string[]>([]);
+    const [isSaved, setSaved] = useState(false);
+    const [passwordChangedSuccessfull, setPasswordChangedSuccessfull] = useState(false);
 
     useEffect(() => {
         settingsService.fetchLangs()
@@ -49,13 +55,35 @@ export default function SettingsForm({settingsService}: SettingsFormProps) {
         setSaved(false);
     }
 
+    function handleChangePassword(event: React.ChangeEvent<HTMLInputElement>) {
+        setPasswordForm(event.target.value);
+    }
+
+    function handleChangeConfirmPassword(event: React.ChangeEvent<HTMLInputElement>) {
+        setPasswordConfirmForm(event.target.value);
+    }
+
     function handleSubmit() {
         setSaved(true);
-        settingsService.updateLang(TokenService.getToken(), {language: lang_form})
+        let token = TokenService.getToken();
+        settingsService.updateLang(token, {language: lang_form})
             .then((_) => {
                 langDispatcher(changeLang(lang_form));
             })
-        forexDispatcher(changeForex(forex_form));
+
+        settingsService.updateForexCurrency(token, {forex_currency: forex_form})
+            .then((_) => {
+                forexDispatcher(changeForex(forex_form));
+            })
+
+
+        if (password_form != null && password_form === passwordConfirm_form) {
+            userService.update(token, {password: password_form})
+                .then(_ => {
+                    setPasswordChangedSuccessfull(true);
+                });
+        }
+
     }
 
     return (
@@ -93,6 +121,21 @@ export default function SettingsForm({settingsService}: SettingsFormProps) {
                         })}
                     </Select>
 
+                    <TextField
+                        id="outlined-password-input"
+                        label="Password"
+                        type="password"
+                        autoComplete="current-password"
+                        onChange={handleChangePassword}
+                    />
+                    <TextField
+                        id="outlined-password-input"
+                        label="ConfirmPassword"
+                        type="password"
+                        autoComplete="current-password"
+                        onChange={handleChangeConfirmPassword}
+                    />
+
 
                     <Button variant="contained" color="primary" onClick={handleSubmit}>
                         Save
@@ -101,6 +144,8 @@ export default function SettingsForm({settingsService}: SettingsFormProps) {
             </Box>
 
             <Toaster default_open={isSaved} severity={"info"} message={"Settings have been registered !"}/>
+            <Toaster default_open={passwordChangedSuccessfull} severity={"info"}
+                     message={"Successfully change password !"}/>
         </div>
     );
 }

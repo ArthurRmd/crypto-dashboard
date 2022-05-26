@@ -3,6 +3,7 @@ import {CryptoService} from "../services/crypto_service";
 import {DashBoardCryptDataDo} from "../models/do/dashboard_crypto";
 
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
+import {TokenService} from "../services/token_service";
 
 export interface CryptoComponentProps {
     cryptoService: CryptoService;
@@ -29,7 +30,7 @@ export default function CryptoComponent({cryptoService}: CryptoComponentProps) {
 
 
     useEffect(() => {
-        cryptoService.fetchNewChanges()
+        cryptoService.fetchNewChanges(TokenService.getToken())
             .then(changes => setCryptos(changes))
             .catch(error => console.log(error));
     }, []);
