@@ -43,6 +43,9 @@ export default function CryptoComponent({cryptoService}: CryptoComponentProps) {
 
     return (
         <div style={{height: 400, width: '100%'}}>
+
+            <h1> Dashboard</h1>
+
             <DataGrid
                 rows={convertRows(cryptos)}
                 columns={columns}

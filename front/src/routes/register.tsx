@@ -7,6 +7,9 @@ export default function RegisterRoute() {
   const userService = UserService.create();
 
   return (
-    <RegisterForm userService={userService} />
+    <div>
+      <h1>Register</h1>
+      <RegisterForm userService={userService} />
+    </div>
   );
 }
