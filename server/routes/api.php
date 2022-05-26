@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CryptoController;
 use App\Http\Controllers\InvestmentController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -55,4 +56,19 @@ Route::controller(InvestmentController::class)
     });
 
 
+Route::controller(LanguageController::class)
+    ->prefix('languages')
+    ->name('languages.')
+    ->group(function () {
+        Route::get('/', 'getAll');
+        Route::post('/change', 'change')->middleware('auth:sanctum');
+    });
+
+Route::controller(\App\Http\Controllers\ForexCurrencyController::class)
+    ->prefix('forex-currency')
+    ->name('forex-currency.')
+    ->group(function () {
+        Route::get('/', 'getAll');
+        Route::post('/change', 'change')->middleware('auth:sanctum');
+    });
 

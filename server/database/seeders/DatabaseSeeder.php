@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ForexCurrency;
+use App\Enums\Language;
 use App\Http\Controllers\CryptoController;
 use App\Models\Crypto;
 use App\Models\Investment;
@@ -25,6 +27,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'password' => bcrypt('password'),
+            'language' => Language::FRENCH,
+            'forex_currency' => ForexCurrency::USD,
         ]);
 
         Artisan::call('db:seed --class=CryptoSeeder ');
