@@ -12,12 +12,9 @@ import {
 } from "../../routes/router";
 import {AppBar, Container, IconButton, Toolbar, Typography} from "@mui/material";
 
-
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Avatar from '@mui/material/Avatar';
-import Tooltip from '@mui/material/Tooltip';
 
 class InnerMainMenuItem {
     private readonly title: string;
