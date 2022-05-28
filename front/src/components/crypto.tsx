@@ -80,7 +80,7 @@ export default function CryptoComponent({cryptoService}: CryptoComponentProps) {
             },
             title: {
                 display: true,
-                text: 'Chart.js Line Chart',
+                text: 'Top 10 Cryptos',
             },
         },
     };

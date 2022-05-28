@@ -93,13 +93,12 @@ export function InvestmentsComponent({investmentsService}: InvestmentsComponentP
     }
 
     const data = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['BTC', 'ETH', 'MONERO', 'LUNA', 'XPI', 'BNB'],
         datasets: [
             {
-                label: '# of Votes',
                 data: [12, 19, 3, 5, 2, 3],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
+                    '#FFA',
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(255, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
@@ -125,10 +124,6 @@ export function InvestmentsComponent({investmentsService}: InvestmentsComponentP
             legend: {
                 position: 'top' as const,
             },
-            title: {
-                display: true,
-                text: 'Chart.js Line Chart',
-            },
         },
     };
 
@@ -138,20 +133,15 @@ export function InvestmentsComponent({investmentsService}: InvestmentsComponentP
         labels,
         datasets: [
             {
-                label: 'Dataset 1',
+                label: 'Evolution Investments',
                 data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            },
-            {
-                label: 'Dataset 2',
-                data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-                borderColor: 'rgb(53, 162, 235)',
-                backgroundColor: 'rgba(53, 162, 235, 0.5)',
-            },
+            }
         ],
     };
 
+    console.log(data2)
 
     return (
         <div>

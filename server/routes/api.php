@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\CryptoController;
+use App\Http\Controllers\ForexCurrencyController;
 use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -63,7 +65,7 @@ Route::controller(LanguageController::class)
         Route::post('/change', 'change')->middleware('auth:sanctum');
     });
 
-Route::controller(\App\Http\Controllers\ForexCurrencyController::class)
+Route::controller(ForexCurrencyController::class)
     ->prefix('forex-currencies')
     ->name('forex-currencies.')
     ->group(function () {
@@ -71,3 +73,11 @@ Route::controller(\App\Http\Controllers\ForexCurrencyController::class)
         Route::post('/change', 'change')->middleware('auth:sanctum');
     });
 
+
+Route::controller(StatisticController::class)
+    ->prefix('statistics')
+    ->name('statistics.')
+    ->group(function () {
+        Route::get('/investments', 'investments')->middleware('auth:sanctum');
+        Route::get('/dashboard', 'dashboard')->middleware('auth:sanctum');
+    });
