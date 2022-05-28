@@ -2,9 +2,36 @@ import React, {useEffect, useState} from "react";
 import {CryptoService} from "../services/crypto_service";
 import {DashBoardCryptDataDo} from "../models/do/dashboard_crypto";
 
+import {Container, Grid} from "@mui/material";
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
-import {TokenService} from "../services/token_service";
 
+import {TokenService} from "../services/token_service";
+import { faker } from '@faker-js/faker';
+
+import {Doughnut, Line} from 'react-chartjs-2';
+
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    ArcElement,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    ArcElement
+);
 export interface CryptoComponentProps {
     cryptoService: CryptoService;
 }
@@ -42,12 +69,55 @@ export default function CryptoComponent({cryptoService}: CryptoComponentProps) {
         {field: 'change_percent_24h', headerName: 'Change last 24h (%)', width: 150},
     ];
 
+
+
+
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top' as const,
+            },
+            title: {
+                display: true,
+                text: 'Chart.js Line Chart',
+            },
+        },
+    };
+
+    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+    const data2 = {
+        labels,
+        datasets: [
+            {
+                label: 'Dataset 1',
+                data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            },
+            {
+                label: 'Dataset 2',
+                data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+                borderColor: 'rgb(53, 162, 235)',
+                backgroundColor: 'rgba(53, 162, 235, 0.5)',
+            },
+        ],
+    };
+
+    console.log(data2)
+
     return (
         <div style={{height: 400, width: '100%'}}>
 
-            <h1> Dashboard</h1>
+            <h1 style={{marginBottom: 20}}> Dashboard</h1>
+
+            <Container maxWidth="md">
+                <Line options={options} data={data2} />
+            </Container>
 
             <DataGrid
+                style={{marginTop: 60}}
                 rows={convertRows(cryptos)}
                 columns={columns}
                 pageSize={5}

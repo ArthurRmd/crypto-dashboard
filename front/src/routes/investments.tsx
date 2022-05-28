@@ -8,11 +8,10 @@ export default function InvestmentsRoute() {
     const investmentsService = InvestmentsService.create();
     return (
         <div>
-            <h1> My Investments </h1>
+            <h1 style={{marginBottom:30}}> My Investments </h1>
             <InvestmentsComponent investmentsService={investmentsService}/>
 
-            <br/>
-            <h2> Create Investment</h2>
+            <h2 style={{marginTop:40}}> Create Investment</h2>
             <InvestmentsForm investmentsService={investmentsService}/>
         </div>
     );
