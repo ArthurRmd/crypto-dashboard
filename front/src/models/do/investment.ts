@@ -11,7 +11,7 @@ export interface SingleInvestmentDo {
 export interface InvestmentDataDo {
     price_usd: number;
     crypto_value: number;
-    created_at: Date;
+    created_at: string;
     crypto: CryptoDo;
 }
 

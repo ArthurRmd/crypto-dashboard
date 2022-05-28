@@ -12,6 +12,7 @@ export const SERVER_USER_UPDATE_ROUTE: string = BASE_API + '/users';
 // Investments
 export const SERVER_INVESTMENTS_ROUTE: string = BASE_API + '/investments';
 export const SERVER_INVESTMENT_BUY_ROUTE: string = BASE_API + '/investments/{crypto}';
+export const SERVER_INVESTMENT_DELETE_ROUTE: string = BASE_API + '/investments/{crypto}';
 
 // Settings
 // Lang
