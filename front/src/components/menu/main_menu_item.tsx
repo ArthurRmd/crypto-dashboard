@@ -10,10 +10,11 @@ export interface MainMenuItemProps {
 
 export default function MainMenuItem({title, redirect, isLightLink}: MainMenuItemProps) {
     return (
-        <MenuItem key={title}>
-            <Link to={redirect} className={isLightLink ? 'light-link' : 'dark-link'}>
+
+        <Link to={redirect} className={isLightLink ? 'light-link' : 'dark-link'}>
+            <MenuItem key={title}>
                 {title}
-            </Link>
-        </MenuItem>
-    );
+            </MenuItem>
+        </Link>
+);
 }

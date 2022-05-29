@@ -1,6 +1,6 @@
-import {DashBoardCryptDataDo, DashBoardCryptDo} from "../models/do/dashboard_crypto";
+import {DashBoardCryptDataDo, DashBoardCryptDo, DashBoardCryptStatDataDo} from "../models/do/dashboard_crypto";
 import axios from "axios";
-import {BEARER, SERVER_FETCH_NEW_CHANGES} from "./api_routes";
+import {BEARER, SERVER_FETCH_NEW_CHANGES, SERVER_STATISTICS_DASHBOARD} from "./api_routes";
 
 export class CryptoService {
 
@@ -28,4 +28,22 @@ export class CryptoService {
             });
     }
 
+
+    public async getStatistics(token: string): Promise<DashBoardCryptStatDataDo> {
+
+        return await axios.get<DashBoardCryptStatDataDo>(
+            SERVER_STATISTICS_DASHBOARD,
+            {headers: {'Authorization': BEARER + token,}}
+        )
+            .then((response) => {
+                const status = response.status;
+                if (status === 200) {
+                    return response.data;
+                }
+
+                throw new Error('Failed to fetch new changes for dashboard on ' + SERVER_FETCH_NEW_CHANGES + ' with status ' + status);
+            }).catch((error) => {
+                throw new Error('Failed to fetch new changes for dashboard on ' + SERVER_FETCH_NEW_CHANGES, error);
+            });
+    }
 }

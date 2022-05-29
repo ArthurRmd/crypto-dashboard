@@ -22,3 +22,7 @@ export const SERVER_SETTINGS_LANGS_UPDATE_ROUTE: string = BASE_API + '/languages
 // Forex currency
 export const SERVER_SETTINGS_FOREX_ROUTE: string = BASE_API + '/forex-currencies';
 export const SERVER_SETTINGS_FOREX_UPDATE_ROUTE: string = BASE_API + '/forex-currencies/change';
+
+// Statistics
+export const SERVER_STATISTICS_DASHBOARD: string = BASE_API + '/statistics/dashboard';
+export const SERVER_STATISTICS_INVESTMENTS: string = BASE_API + '/statistics/investments';

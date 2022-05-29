@@ -77,10 +77,14 @@ class StatisticController extends Controller
         foreach ($cryptos as $crypto) {
             $lastValue = $crypto->price_usd;
 
+            $data['name'] = $crypto->name;
+            $data['color'] = RandomColor::one();
+            $data['values'] = [];
             for ($i = 0; $i < 12; ++$i) {
-                $cryptosData[$crypto->name][] = $lastValue;
+                $data['values'][] = $lastValue;
                 $lastValue += random_int(-($crypto->price_usd / 10),($crypto->price_usd / 10));
             }
+            $cryptosData[] = $data;
         }
 
 
@@ -88,7 +92,7 @@ class StatisticController extends Controller
         return response()
             ->json([
                 'months' => $months,
-                'crypto_data' => $cryptosData,
+                'data' => $cryptosData,
             ]);
     }
 }
