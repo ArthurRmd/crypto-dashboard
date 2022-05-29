@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { InvestmentsService } from "../../services/investments_service";
 import { InvestmentDataDo } from "../../models/do/investment";
 import { TokenService } from "../../services/token_service";
-import { Toaster } from "../toaster";
+import { Toaster, defaultHandleToastClose } from "../toaster";
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
@@ -47,11 +47,6 @@ export function InvestmentsComponent({ investmentsService }: InvestmentsComponen
   const isLogged: boolean = useSelector((state: any) => state.loger.value);
   const [investments, setInvestments] = useState<InvestmentDataDo[]>([]);
 
-  const handleToastClose = (event: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-  };
 
   useEffect(() => {
     if (isLogged) {
@@ -69,7 +64,7 @@ export function InvestmentsComponent({ investmentsService }: InvestmentsComponen
         open={true}
         severity={"error"}
         message={"You must be connected !"}
-        handleClose={handleToastClose}
+        handleClose={defaultHandleToastClose}
       />
     );
   }

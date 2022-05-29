@@ -21,7 +21,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Toaster } from "./toaster";
+import { Toaster, defaultHandleToastClose } from "./toaster";
 import { useSelector } from "react-redux";
 
 ChartJS.register(
@@ -58,13 +58,6 @@ export default function CryptoComponent({ cryptoService }: CryptoComponentProps)
   const [cryptos, setCryptos] = useState<DashBoardCryptDataDo[]>([]);
   const isLogged: boolean = useSelector((state: any) => state.loger.value);
 
-
-  const handleToastClose = (event: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-  };
-
   useEffect(() => {
     if (isLogged) {
       cryptoService.fetchNewChanges(TokenService.getToken())
@@ -83,7 +76,7 @@ export default function CryptoComponent({ cryptoService }: CryptoComponentProps)
         open={true}
         severity={"error"}
         message={"You must be connected !"}
-        handleClose={handleToastClose}
+        handleClose={defaultHandleToastClose }
       />
     );
   }

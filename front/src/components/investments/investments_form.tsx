@@ -9,7 +9,7 @@ import { SelectChangeEvent } from "@mui/material/Select";
 import { TokenService } from "../../services/token_service";
 import TextField from "@mui/material/TextField";
 import { useSelector } from "react-redux";
-import { Toaster } from "../toaster";
+import { defaultHandleToastClose, Toaster } from "../toaster";
 
 
 export interface InvestmentsFormProps {
@@ -37,19 +37,13 @@ export function InvestmentsForm({ investmentsService }: InvestmentsFormProps) {
       });
   }
 
-  const handleToastClose = (event: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-  };
-
   if (!isLogged) {
     return (
       <Toaster
         open={true}
         severity={"error"}
         message={"You must be connected !"}
-        handleClose={handleToastClose}
+        handleClose={defaultHandleToastClose}
       />
     );
   }
