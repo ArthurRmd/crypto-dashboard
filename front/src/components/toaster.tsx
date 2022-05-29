@@ -4,23 +4,13 @@ import {Alert, AlertColor, Snackbar} from "@mui/material";
 
 
 export interface ToasterProps {
-    default_open: boolean;
+    open: boolean;
     severity: AlertColor;
     message: string;
+    handleClose: any;
 }
 
-export function Toaster({default_open, severity, message}: ToasterProps) {
-
-    const [open, setOpen] = useState(default_open);
-
-    function handleClose(event?: React.SyntheticEvent | Event, reason?: string) {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        setOpen(false);
-    }
-
+export function Toaster({open, severity, message, handleClose}: ToasterProps) {
     return (
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity={severity} sx={{width: '100%'}}>

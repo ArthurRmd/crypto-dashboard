@@ -53,11 +53,9 @@ class UserController extends Controller
                 ]);
         }
 
-        return response()
-            ->json([
-                'success' => false,
-                'message' => 'email and password doesn\'t match',
-            ]);
+    return response()
+      ->json([], 401)
+      ->header('Crypto-Dashboard-Error', 'email and password doesn\'t match');
     }
 
 

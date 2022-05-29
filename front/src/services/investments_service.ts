@@ -17,7 +17,7 @@ export class InvestmentsService {
         if (response.status === 200) {
           return 'Success deleting';
         }
-        throw new Error('Failed to delete');
+        return Promise.reject('Failed to delete');
       });
   }
 
@@ -32,11 +32,7 @@ export class InvestmentsService {
         if (201 === status) {
           return response.data.data;
         }
-        throw new Error("Failed to fetch investments with status " + status);
-      })
-      .catch(error => {
-        console.log(error);
-        throw new Error('Failed to contact server. Please refresh your client.');
+        return Promise.reject("Failed to fetch investments with status " + status);
       });
   }
 
@@ -48,11 +44,7 @@ export class InvestmentsService {
         if (200 === status) {
           return response.data;
         }
-        throw new Error("Failed to fetch investments with status " + status);
-      })
-      .catch((error) => {
-        console.log(error);
-        throw new Error('Failed to contact server. Please refresh your client.');
+        return Promise.reject("Failed to fetch investments with status " + status);
       });
   }
 

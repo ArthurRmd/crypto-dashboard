@@ -44,21 +44,35 @@ export interface InvestmentsComponentProps {
 export function InvestmentsComponent({ investmentsService }: InvestmentsComponentProps) {
 
   const forex_currency: string = useSelector((state: any) => state.forex.value);
-  const [isAuthenticated, setAuthenticated] = useState(false);
+  const isLogged: boolean = useSelector((state: any) => state.loger.value);
   const [investments, setInvestments] = useState<InvestmentDataDo[]>([]);
 
+  const handleToastClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+  };
+
   useEffect(() => {
-    try {
+    if (isLogged) {
       investmentsService.fetchInvestments(TokenService.getToken())
         .then(investments => {
           setInvestments(investments.data)
         })
         .catch(error => console.log(error));
-      setAuthenticated(true);
-    } catch (e) {
-      setAuthenticated(false);
     }
   }, []);
+
+  if (!isLogged) {
+    return (
+      <Toaster
+        open={true}
+        severity={"error"}
+        message={"You must be connected !"}
+        handleClose={handleToastClose}
+      />
+    );
+  }
 
   const data = {
     labels: ['BTC', 'ETH', 'MONERO', 'LUNA', 'XPI', 'BNB'],
@@ -121,12 +135,6 @@ export function InvestmentsComponent({ investmentsService }: InvestmentsComponen
     'Delete',
   ];
 
-
-  if (!isAuthenticated) {
-    return (
-      <Toaster default_open={true} severity={"error"} message={"You must be connected !"} />
-    );
-  }
 
   return (
     <Box>
