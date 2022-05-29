@@ -14,6 +14,7 @@ import { TokenService } from "../../services/token_service";
 import { UserService } from "../../services/user_service";
 import TextField from "@mui/material/TextField";
 import { AlertColor } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 export interface SettingsFormProps {
   settingsService: SettingsService;
@@ -21,6 +22,7 @@ export interface SettingsFormProps {
 }
 
 export default function SettingsForm({ settingsService, userService }: SettingsFormProps) {
+  const { t } = useTranslation();
   const lang: string = useSelector((state: any) => state.lang.value);
   const forex_currency: string = useSelector((state: any) => state.forex.value);
 
@@ -88,13 +90,13 @@ export default function SettingsForm({ settingsService, userService }: SettingsF
         setToastSeverity("error");
       });
 
-    setToastMessage("Settings have been registered !");
+    setToastMessage(t('profile.success_settings_registered'));
 
     if (password_form && passwordConfirm_form && password_form === passwordConfirm_form) {
       userService.update(token, { password: password_form })
         .then(_ => {
           setToastSeverity("info");
-          setToastMessage("Successfully change password !");
+          setToastMessage(t('profile.success_settings_password_changed'));
         }).catch(_ => {
           setToastSeverity("error");
         });

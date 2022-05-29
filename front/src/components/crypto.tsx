@@ -23,6 +23,7 @@ import {
 } from 'chart.js';
 import { Toaster, defaultHandleToastClose } from "./toaster";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 ChartJS.register(
   CategoryScale,
@@ -54,7 +55,7 @@ function convertRows(cryptos: DashBoardCryptDataDo[]) {
 }
 
 export default function CryptoComponent({ cryptoService }: CryptoComponentProps) {
-
+  const { t } = useTranslation();
   const [cryptos, setCryptos] = useState<DashBoardCryptDataDo[]>([]);
   const isLogged: boolean = useSelector((state: any) => state.loger.value);
 
@@ -75,7 +76,7 @@ export default function CryptoComponent({ cryptoService }: CryptoComponentProps)
       <Toaster
         open={true}
         severity={"error"}
-        message={"You must be connected !"}
+        message={t('general.connection.not_connected')}
         handleClose={defaultHandleToastClose }
       />
     );

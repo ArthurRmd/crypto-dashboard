@@ -14,12 +14,14 @@ import { LoginUserDo } from "../../models/do/login";
 import { Toaster } from '../toaster';
 import { AlertColor } from '@mui/material';
 import { DASHBOARD_ROUTE } from '../../routes/router';
+import { useTranslation } from 'react-i18next';
 
 export interface LoginProps {
   userService: UserService;
 }
 
 export default function LoginForm({ userService }: LoginProps) {
+  const { t } = useTranslation();
 
   const loginDispatcher = useDispatch();
   const profileDispatcher = useDispatch();

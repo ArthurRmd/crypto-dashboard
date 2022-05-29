@@ -8,6 +8,8 @@ import store from './store'
 import {CryptoDashBoardRouter} from "./routes/router";
 import {Container} from "@mui/material";
 
+import './i18n';
+
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
