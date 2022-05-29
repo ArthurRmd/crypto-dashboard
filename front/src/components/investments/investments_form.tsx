@@ -49,44 +49,43 @@ export function InvestmentsForm({ investmentsService }: InvestmentsFormProps) {
   }
 
   return (
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <FormControl sx={{ m: 2, minWidth: 450 }}>
-        <InputLabel id="label-buy-crypto">Age</InputLabel>
-        <Select
-          labelId="label-buy-crypto"
-          id="demo-simple-select"
-          value={cryptoToBuy}
-          label="Crypto to buy"
-          fullWidth={true}
-          onChange={handleChangeCryptoChoice}
-        >
-          <MenuItem value="1">BTC</MenuItem>
-          <MenuItem value="2">ETH</MenuItem>
-        </Select>
+    <Box>
+      <h2 style={{ marginTop: 40 }}> Create Investment</h2>
+      <Box
+        component="form"
+        sx={{
+          '& .MuiTextField-root': { m: 1, width: '25ch' },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <FormControl sx={{ m: 2, minWidth: 450 }}>
+          <InputLabel id="label-buy-crypto">Age</InputLabel>
+          <Select
+            labelId="label-buy-crypto"
+            id="demo-simple-select"
+            value={cryptoToBuy}
+            label="Crypto to buy"
+            fullWidth={true}
+            onChange={handleChangeCryptoChoice}
+          >
+            <MenuItem value="1">BTC</MenuItem>
+            <MenuItem value="2">ETH</MenuItem>
+          </Select>
 
-        <TextField
-          style={{ width: '100%', margin: '10px 0' }}
-          required
-          id="outlined-required"
-          label="Amount"
-          onChange={handleChangeCryptoAmount}
-        />
+          <TextField
+            style={{ width: '100%', margin: '10px 0' }}
+            required
+            id="outlined-required"
+            label="Amount"
+            onChange={handleChangeCryptoAmount}
+          />
 
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
-          BUY NOW
-        </Button>
-      </FormControl>
-
-
-
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
+            BUY NOW
+          </Button>
+        </FormControl>
+      </Box>
     </Box>
-
   );
 }

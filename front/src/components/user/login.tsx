@@ -13,6 +13,7 @@ import { changeForex } from "../../state/forexSlice";
 import { LoginUserDo } from "../../models/do/login";
 import { Toaster } from '../toaster';
 import { AlertColor } from '@mui/material';
+import { DASHBOARD_ROUTE } from '../../routes/router';
 
 export interface LoginProps {
   userService: UserService;
@@ -84,7 +85,7 @@ export default function LoginForm({ userService }: LoginProps) {
 
   if (isLogged) {
     return (
-      <Navigate to="/" />
+      <Navigate to={"/" + DASHBOARD_ROUTE} />
     );
   }
 

@@ -133,6 +133,7 @@ export function InvestmentsComponent({ investmentsService }: InvestmentsComponen
 
   return (
     <Box>
+      <h1 style={{marginBottom:30}}> My Investments </h1>
       <Box>
         <Grid container spacing={2} style={{ marginBottom: 30 }}>
           <Grid item xs={4}>
